@@ -1,0 +1,13 @@
+diff --git a/src/gwt/org/bbop/apollo/gwt/client/Annotator.java b/src/gwt/org/bbop/apollo/gwt/client/Annotator.java
+index a211e2a..0fbda2f 100644
+--- a/src/gwt/org/bbop/apollo/gwt/client/Annotator.java
++++ b/src/gwt/org/bbop/apollo/gwt/client/Annotator.java
+@@ -89,7 +89,7 @@ public boolean execute() {
+                         @Override
+                         public void onResponseReceived(Request request, Response response) {
+                             int statusCode = response.getStatusCode();
+-                            if(statusCode==200){
++                            if(statusCode==200 && response.getText().equals("{}")){
+                                 GWT.log("Still connected");
+                             }
+                             else{

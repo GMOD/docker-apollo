@@ -1,0 +1,62 @@
+diff --git a/grails-app/conf/Config.groovy b/grails-app/conf/Config.groovy
+index 850158e..17cd575 100644
+--- a/grails-app/conf/Config.groovy
++++ b/grails-app/conf/Config.groovy
+@@ -387,7 +387,7 @@ auditLog {
+ jbrowse {
+     git {
+         url= "https://github.com/gmod/jbrowse"
+-        tag = "29795a1bbb8da4706eba2b0f73724ac1b3e1e4e6"
++        tag = "99d8e6e1e7dfe290b839d41c18f41cf92d9afc7c"
+ //		tag = "1.12.2-apollo"
+ //        branch = "master"
+         alwaysPull = false
+diff --git a/grails-app/controllers/org/bbop/apollo/GroupController.groovy b/grails-app/controllers/org/bbop/apollo/GroupController.groovy
+index 8537d61..7ee8fe4 100644
+--- a/grails-app/controllers/org/bbop/apollo/GroupController.groovy
++++ b/grails-app/controllers/org/bbop/apollo/GroupController.groovy
+@@ -54,7 +54,7 @@ class GroupController {
+         try {
+             log.debug "loadGroups"
+             JSONObject dataObject = permissionService.handleInput(request,params)
+-            if (!permissionService.hasPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
++            if (!permissionService.hasGlobalPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
+                 render status: HttpStatus.UNAUTHORIZED
+                 return
+             }
+@@ -147,7 +147,7 @@ class GroupController {
+     @Transactional
+     def createGroup() {
+         JSONObject dataObject = permissionService.handleInput(request, params)
+-        if (!permissionService.hasPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
++        if (!permissionService.hasGlobalPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
+             render status: HttpStatus.UNAUTHORIZED
+             return
+         }
+@@ -174,7 +174,7 @@ class GroupController {
+     @Transactional
+     def deleteGroup() {
+         JSONObject dataObject = permissionService.handleInput(request, params)
+-        if (!permissionService.hasPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
++        if (!permissionService.hasGlobalPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
+             render status: HttpStatus.UNAUTHORIZED.value()
+             return
+         }
+@@ -219,7 +219,7 @@ class GroupController {
+     def updateGroup() {
+         log.info "Updating group"
+         JSONObject dataObject = permissionService.handleInput(request, params)
+-        if (!permissionService.hasPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
++        if (!permissionService.hasGlobalPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
+             render status: HttpStatus.UNAUTHORIZED.value()
+             return
+         }
+@@ -332,7 +332,7 @@ class GroupController {
+     @Transactional
+     def updateMembership() {
+         JSONObject dataObject = permissionService.handleInput(request, params)
+-        if (!permissionService.hasPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
++        if (!permissionService.hasGlobalPermissions(dataObject, PermissionEnum.ADMINISTRATE)) {
+             render status: HttpStatus.UNAUTHORIZED.value()
+             return
+         }
