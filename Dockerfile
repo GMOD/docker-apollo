@@ -39,7 +39,12 @@ USER root
 ENV CONTEXT_PATH ROOT
 ENV CATALINA_HOME /var/lib/tomcat8
 
-RUN rm -rf ${CATALINA_HOME}/webapps/* 
+RUN rm -rf ${CATALINA_HOME}/webapps/* && \
+    cp /apollo/target/apollo*.war ${CATALINA_HOME}/webapps/${CONTEXT_PATH}.war && \
+    mkdir ${CATALINA_HOME}/webapps/${CONTEXT_PATH} && \
+    cd ${CATALINA_HOME}/webapps/${CONTEXT_PATH} && \
+    jar xvf ../${CONTEXT_PATH}.war && \
+    cd /apollo
 
 # Download chado schema
 RUN wget --quiet https://github.com/erasche/chado-schema-builder/releases/download/1.31-jenkins97/chado-1.31.sql.gz -O /chado.sql.gz && \
