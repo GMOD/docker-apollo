@@ -1,8 +1,6 @@
-# Apollo
 
-![Apollo Logo](https://github.com/GMOD/docker-apollo/raw/master/img/ApolloLogo_100x36.png)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.268535.svg)](https://doi.org/10.5281/zenodo.268535)
 
+# ![Apollo](img/ApolloLogo_100x36.png) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.268535.svg)](https://doi.org/10.5281/zenodo.268535) [![Docker Repository on Quay](https://quay.io/repository/gmod/docker-apollo/status "Docker Repository on Quay")](https://quay.io/repository/gmod/docker-apollo)
 
 > Apollo is a browser-based tool for visualisation and editing of sequence
 > annotations. It is designed for distributed community annotation efforts,
@@ -10,31 +8,32 @@
 > different locations; real-time updating keeps all users in sync during the
 > editing process.
 
-## Running the Container
-
-The container is publicly available as `gmod/apollo:stable`. The recommended
-method for launching the container is via docker-compose due to a dependency on
-a postgres image.
-
-There are a large number of environment variables that can be adjusted to suit
-your site's needs. These can be seen in the
-[apollo-config.groovy](https://github.com/GMOD/Apollo/blob/master/sample-docker-apollo-config.groovy)
-file.
-
 ## Quickstart
 
-This procedure starts tomcat in a standard virtualized environment with a PostgreSQL database with [Chado](http://gmod.org/wiki/Introduction_to_Chado).
+If you've never used docker before, first you will need to [install it](https://docs.docker.com/engine/installation/).
 
-- Install [docker](https://docs.docker.com/engine/installation/) for your system if not previously done.
-- `docker run -it -p 8888:8080 gmod/apollo:2.0.6` # for a tested release
-- `docker run -it -p 8888:8080 gmod/apollo:latest` # for the latest, remember to ```docker pull gmod/apollo``` to fetch newer versions
-- `docker run -it -p 8888:8080 gmod/apollo:apollo-only` # from apollo only (no postgresql)
-- `docker run -it -v /jbrowse/root/directory/:/data -p 8888:8080 gmod/apollo:latest`
-- `docker run -it -v /jbrowse/root/directory/:/data  -p 8888:8080 quay.io/gmod/docker-apollo` # built by quay.io
-- Apollo will be available at [http://localhost:8888/](http://localhost:8888/) (or 8888 if you don't configure the port)
+There are several flavours of Apollo images, based on your needs:
 
-When you use the above mount directory ```/jbrowse/root/directory``` and your genome is in 
-```/jbrowse/root/directory/myawesomegenome``` you'll point to the directory: ```/data/myawesomegenome```.
+Image      | Contents                       | Comments
+---------- | ------------------------------ | -------------
+`:latest`  | Apollo + Chado + JBrowse Tools | This is the easiest image to get started with. Just run `docker run -it -p 8080:8080 quay.io/gmod/docker-apollo`
+`:unified` | Apollo + Chado                 | Very similar to the `:latest` image, but does not include the JBrowse tools. Use this if you already have a JBrowse instance you wish to annotate
+`:bare`    | Apollo                         | The most lightweight image, especially for admins and people wishing to deploy Apollo in production.
+
+You can launch these images with `docker run` commands:
+
+```console
+$ docker run -it -p 8080:8080 quay.io/gmod/docker-apollo:latest
+$ docker run -it -p 8080:8080 quay.io/gmod/docker-apollo:unified
+```
+
+If you need to load data, you can mount a volume into the docker container:
+
+```console
+$ docker run -it -v /jbrowse/dir/:/data -p 8080:8080 quay.io/gmod/docker-apollo
+```
+
+When you access this data within Apollo, you should refer to `/jbrowse/dir/my-organism` as `/data/my-organism`
 
 ### Logging In
 
@@ -48,10 +47,8 @@ The default credentials in this image are:
 
 ### Loading Data
 
-Some sample data is baked into the container for you to play around with:
+Sample data is available within the container thanks to the JBrowse installation in this image. E.g.:
 
-![](./img/sample.png)
-
-### Chado
-
-Chado support is now baked into the GMOD docker container image.
+- `/JBrowse-1.12.3/sample_data/json/volvox`
+- `/JBrowse-1.12.3/sample_data/json/yeast`
+- `/JBrowse-1.12.3/sample_data/json/modencode`
