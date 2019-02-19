@@ -1,7 +1,7 @@
 # Apollo
 
 ![Apollo Logo](https://github.com/GMOD/docker-apollo/raw/master/img/ApolloLogo_100x36.png)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2257772.svg)](https://doi.org/10.5281/zenodo.2257772)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2573060.svg)](https://doi.org/10.5281/zenodo.2573060)
 
 
 
@@ -29,7 +29,7 @@ Install [docker](https://docs.docker.com/engine/installation/) for your system i
 
 Choose an option:
 
-- To test a versioned release to test installation, e.g.: `docker run -it -p 8888:8080  -v /directory/to/jbrowse/files:/data quay.io/gmod/docker-apollo:2.2.0`  [Other available versions](https://quay.io/repository/gmod/docker-apollo?tab=tags)
+- To test a versioned release to test installation, e.g.: `docker run -it -p 8888:8080  -v /directory/to/jbrowse/files:/data quay.io/gmod/docker-apollo:2.3.1`  [Other available versions](https://quay.io/repository/gmod/docker-apollo?tab=tags)
 
 - Install a latest release to test installation: `docker run -it -p 8888:8080 -v /directory/to/jbrowse/files:/data gmod/apollo:latest` 
   -  To make sure you have the latest pull with ```docker pull gmod/apollo``` to fetch newer versions
