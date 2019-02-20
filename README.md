@@ -40,9 +40,9 @@ Choose an option:
 - You can run production using the build created by quay.io instead (https://quay.io/repository/gmod/docker-apollo):
     - `docker run -it -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql  -p 8888:8080 quay.io/gmod/docker-apollo:latest`
 
-You can configure options if need be (though default will work) by setting environmental variables for [apollo-config.groovy](https://github.com/GMOD/docker-apollo/blob/master/apollo-config.groovy) such as:
+You can configure options if need be (though default will work) by setting environmental variables for [apollo-config.groovy](https://github.com/GMOD/docker-apollo/blob/master/apollo-config.groovy) by passing through via [multiple `-e` parameters](https://vsupalov.com/docker-arg-env-variable-guide/) :
 
-    `docker run -it -e APOLLO_ADMIN_PASSWORD=superdupersecrect -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql  -p 8888:8080 quay.io/gmod/docker-apollo:latest`
+    - `docker run -it -e APOLLO_ADMIN_PASSWORD=superdupersecrect -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql  -p 8888:8080 quay.io/gmod/docker-apollo:latest`
 
 In all cases, Apollo will be available at [http://localhost:8888/](http://localhost:8888/) (or 8888 if you don't configure the port)
 
