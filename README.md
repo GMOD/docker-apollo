@@ -34,7 +34,11 @@ Choose an option:
 - Install a latest release to test installation: `docker run -it -p 8888:8080 -v /directory/to/jbrowse/files:/data gmod/apollo:latest` 
   -  To make sure you have the latest pull with ```docker pull gmod/apollo``` to fetch newer versions
   
-- To **run in production** against JBrowse data and a persistent database (you can create an empty directory called `postgres-data`):  
+## Production
+
+- To **run in production** against **persistent** JBrowse data and a **persistent** database you should:
+    - Create an empty directory for database data, e.g. `postgres-data`.
+    - Put JBrowse data in a directory, e.g. `/jbrowse/root/directory/`.
     - `docker run -it -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql -p 8888:8080 quay.io/gmod/docker-apollo:latest`
 
 - You can run production using the build created by quay.io instead (https://quay.io/repository/gmod/docker-apollo):
