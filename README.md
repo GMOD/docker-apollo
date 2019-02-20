@@ -35,11 +35,15 @@ Choose an option:
   -  To make sure you have the latest pull with ```docker pull gmod/apollo``` to fetch newer versions
   
 - To **run in production** against JBrowse data and a persistent database (you can create an empty directory called `postgres-data`):  
-    - `docker run -it -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql -p 8888:8080 gmod/apollo:latest`
+    - `docker run -it -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql -p 8888:8080 quay.io/gmod/docker-apollo:latest`
 
 - You can run production using the build created by quay.io instead (https://quay.io/repository/gmod/docker-apollo):
     - `docker run -it -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql  -p 8888:8080 quay.io/gmod/docker-apollo:latest`
-    
+
+You can configure options if need be (though default will work) by setting environmental variables for [apollo-config.groovy](https://github.com/GMOD/docker-apollo/blob/master/apollo-config.groovy) such as:
+
+    `docker run -it -e APOLLO_ADMIN_PASSWORD=superdupersecrect -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql  -p 8888:8080 quay.io/gmod/docker-apollo:latest`
+
 In all cases, Apollo will be available at [http://localhost:8888/](http://localhost:8888/) (or 8888 if you don't configure the port)
 
 When you use the above mount directory ```/jbrowse/root/directory``` and your genome is in 
