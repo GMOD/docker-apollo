@@ -68,7 +68,9 @@ fi
 
 # https://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Naming
 export CATALINA_HOME="${CATALINA_HOME:-/usr/local/tomcat/}"
-FIXED_CTX=$(echo "${CONTEXT_PATH}" | sed 's|/|#|g')
+
+APOLLO_PATH="${APOLLO_PATH:${CONTEXT_PATH}}"
+FIXED_CTX=$(echo "${APOLLO_PATH}" | sed 's|/|#|g')
 WAR_FILE=${CATALINA_HOME}/webapps/${FIXED_CTX}.war
 
 echo "Restarting tomcat with $CATALINA_HOME"
