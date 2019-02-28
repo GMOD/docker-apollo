@@ -45,6 +45,8 @@ In all cases, Apollo will be available at [http://localhost:8888/](http://localh
 When you use the above mount directory ```/jbrowse/root/directory``` and your genome is in 
 ```/jbrowse/root/directory/myawesomegenome``` you'll point to the directory: ```/data/myawesomegenome```.
 
+- Change the root path of the url (e.g., <http://localhost:8888/otherpath>) by adding the argument `-e APOLLO_PATH=otherpath` when running.
+
 NOTE: If you don't use a locally mounted PostgreSQL database (e.g., creating an empty directory and mounting using `-v postgres-data:/var/lib/postgresql`)
 or [set appropriate environment variables](https://docs.docker.com/engine/reference/commandline/run/) for a remote database 
 ( see variables [defined here](https://github.com/GMOD/docker-apollo/blob/master/launch.sh)) your annotations and setup will not be persisted.
