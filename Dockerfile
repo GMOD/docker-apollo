@@ -20,7 +20,7 @@ RUN npm i -g yarn
 RUN cp /usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/tools.jar && \
 	useradd -ms /bin/bash -d /apollo apollo
 
-ENV WEBAPOLLO_VERSION df779aad1fcdfac2a461488d92ab2c191e993c3a
+ENV WEBAPOLLO_VERSION ee9e050420f290f65762afdce2746f25b3a21c52
 RUN curl -L https://github.com/GMOD/Apollo/archive/${WEBAPOLLO_VERSION}.tar.gz | tar xzf - --strip-components=1 -C /apollo
 
 # install grails
