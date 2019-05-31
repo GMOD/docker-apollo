@@ -1,7 +1,7 @@
 # WebApollo
 # VERSION 2.1.X
 FROM tomcat:8-jre8
-MAINTAINER Eric Rasche <esr@tamu.edu>, Anthony Bretaudeau <anthony.bretaudeau@inria.fr>, Nathan Dunn <nathandunn@lbl.gov>
+MAINTAINER Nathan Dunn <nathandunn@lbl.gov>
 ENV DEBIAN_FRONTEND noninteractive 
 
 RUN apt-get -qq update --fix-missing && \

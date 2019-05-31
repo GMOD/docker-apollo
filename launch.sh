@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+
+WEBAPOLLO_COMMON_DATA="${WEBAPOLLO_COMMON_DATA:-/data/apollo_data}"
+
+if [ ! -e ${WEBAPOLLO_COMMON_DATA} ]; then
+	mkdir -p ${WEBAPOLLO_COMMON_DATA}
+	chown -R ubuntu:ubuntu ${WEBAPOLLO_COMMON_DATA}
+	chmod -R 0755 ${WEBAPOLLO_COMMON_DATA}
+fi
+
+if [ ! -e "${WEBAPOLLO_COMMON_DATA}/test_file" ];then
+	su -c "touch ${WEBAPOLLO_COMMON_DATA}/test_file"
+fi
+
 WEBAPOLLO_DB_DATA="/var/lib/postgresql/9.6/main"
 
 if [ ! -e ${WEBAPOLLO_DB_DATA} ]; then
@@ -12,7 +25,6 @@ if [ ! -e "${WEBAPOLLO_DB_DATA}/PG_VERSION" ];then
 fi
 
 service postgresql start
-
 
 WEBAPOLLO_DB_HOST="${WEBAPOLLO_DB_HOST:-127.0.0.1}"
 WEBAPOLLO_DB_NAME="${WEBAPOLLO_DB_NAME:-apollo}"
