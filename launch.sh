@@ -5,7 +5,6 @@ WEBAPOLLO_COMMON_DATA="${WEBAPOLLO_COMMON_DATA:-/data/apollo_data}"
 
 if [ ! -e ${WEBAPOLLO_COMMON_DATA} ]; then
 	mkdir -p ${WEBAPOLLO_COMMON_DATA}
-	#chown -R ubuntu:ubuntu ${WEBAPOLLO_COMMON_DATA}
 	chmod -R 0755 ${WEBAPOLLO_COMMON_DATA}
 fi
 
