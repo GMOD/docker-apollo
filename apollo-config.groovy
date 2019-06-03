@@ -1,3 +1,11 @@
+
+println "WEBAPOLLO environment"
+System.getenv().each {
+    if(it.key.startsWith("WEBAPOLLO") || it.key.startsWith("CHADO")){
+        println it.key + " " + it.value
+    }
+}
+
 environments {
     development {
     }
