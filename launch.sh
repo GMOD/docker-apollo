@@ -84,13 +84,20 @@ APOLLO_PATH="${APOLLO_PATH:${CONTEXT_PATH}}"
 FIXED_CTX=$(echo "${APOLLO_PATH}" | sed 's|/|#|g')
 WAR_FILE=${CATALINA_HOME}/webapps/${FIXED_CTX}.war
 
-echo "Restarting tomcat with $CATALINA_HOME"
-service tomcat8 restart
+echo "APOLLO PATH ${APOLLO_PATH}"
+echo "WAR FILE ${WAR_FILE}"
 
-cp ${CATALINA_HOME}/apollo.war ${WAR_FILE}
 
-if [[ ! -f "${CATALINA_HOME}/logs/catalina.out" ]]; then
-	touch ${CATALINA_HOME}/logs/catalina.out
-fi
+#echo "Restarting tomcat with $CATALINA_HOME"
+#service tomcat9 restart
 
-tail -f ${CATALINA_HOME}/logs/catalina.out 
+#cp ${CATALINA_HOME}/apollo.war ${WAR_FILE}
+cp ${CATALINA_HOME}/apollo.war ${CATALINA_HOME}/webapps/ROOT.war
+
+#if [[ ! -f "${CATALINA_HOME}/logs/catalina.out" ]]; then
+#	touch ${CATALINA_HOME}/logs/catalina.out
+#fi
+#
+#tail -f ${CATALINA_HOME}/logs/catalina.out
+
+catalina.sh run
