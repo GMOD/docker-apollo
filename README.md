@@ -40,6 +40,8 @@ Choose an option:
     - Create an empty directory for database data, e.g. `postgres-data`.
     - Put JBrowse data in a directory, e.g. `/jbrowse/root/directory/`.
     - `docker run -it -v /jbrowse/root/directory/:/data -v /postgres/data/directory:/var/lib/postgresql -p 8888:8080 quay.io/gmod/docker-apollo:latest`
+    
+- See [docker run instructions](https://docs.docker.com/engine/reference/run/) to run as a daemon (`-d`) and with a fresh container each time (`--rm`) depending on your use-case.
 
 - You can run production using the build created by quay.io instead (https://quay.io/repository/gmod/docker-apollo):
     - `docker run -it -v /jbrowse/root/directory/:/data -v postgres-data:/var/lib/postgresql  -p 8888:8080 quay.io/gmod/docker-apollo:latest`
@@ -81,9 +83,12 @@ you'll add the directory: `/data/yeast`.
 
 ![](./img/small-sample.png)
 
-### Chado
+## Apollo Run-time OPTIONS
 
-Chado support is now baked into the GMOD docker container image.
+Apollo run-time options are specified in the [createenv.sh](createenv.sh) file.  
+
+These are picked up in the [apollo-config.groovy](apollo-config.groovy) file and follows the rules of [regular apollo configuration](https://github.com/GMOD/Apollo/blob/develop/docs/Configure.md). 
 
 
+Special cases include CHADO.  By default it is on, but use `WEBAPOLLO_USE_CHADO=false` to turn off. 
 

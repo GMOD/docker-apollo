@@ -65,7 +65,7 @@ if [[ "$?" == "1" ]]; then
 	su postgres -c "psql $WEBAPOLLO_HOST_FLAG -c \"GRANT ALL PRIVILEGES ON DATABASE $WEBAPOLLO_DB_NAME to $WEBAPOLLO_DB_USERNAME;\""
 fi
 
-if [ ${WEBAPOLLO_USE_CHADO} ]; then
+if [[ "${WEBAPOLLO_USE_CHADO}" == "true" ]]; then
     echo "Configuring Chado"
     su postgres -c "PGPASSWORD=$CHADO_DB_PASSWORD psql $CHADO_HOST_FLAG -U $CHADO_DB_USERNAME -lqt | cut -d \| -f 1 | grep -qw $CHADO_DB_NAME"
     if [[ "$?" == "1" ]]; then
@@ -81,27 +81,16 @@ else
     echo "Not using chado!"
 fi
 
-# https://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Naming
 export CATALINA_HOME="${CATALINA_HOME:-/usr/local/tomcat/}"
 
-#APOLLO_PATH="${APOLLO_PATH:${CONTEXT_PATH}}"
-#FIXED_CTX=$(echo "${APOLLO_PATH}" | sed 's|/|#|g')
-#WAR_FILE=${CATALINA_HOME}/webapps/${FIXED_CTX}.war
-#
-#echo "APOLLO PATH ${APOLLO_PATH}"
-#echo "WAR FILE ${WAR_FILE}"
+APOLLO_PATH="${APOLLO_PATH:${CONTEXT_PATH}}"
+FIXED_CTX=$(echo "${APOLLO_PATH}" | sed 's|/|#|g')
+WAR_FILE=${CATALINA_HOME}/webapps/${FIXED_CTX}.war
 
+echo "APOLLO PATH ${APOLLO_PATH}"
+echo "FIXED_CTX PATH ${FIXED_CTX}"
+echo "WAR FILE ${WAR_FILE}"
 
-#echo "Restarting tomcat with $CATALINA_HOME"
-#service tomcat9 restart
-
-#cp ${CATALINA_HOME}/apollo.war ${WAR_FILE}
-cp ${CATALINA_HOME}/apollo.war ${CATALINA_HOME}/webapps/ROOT.war
-
-#if [[ ! -f "${CATALINA_HOME}/logs/catalina.out" ]]; then
-#	touch ${CATALINA_HOME}/logs/catalina.out
-#fi
-#
-#tail -f ${CATALINA_HOME}/logs/catalina.out
+cp ${CATALINA_HOME}/apollo.war ${WAR_FILE}
 
 catalina.sh run
