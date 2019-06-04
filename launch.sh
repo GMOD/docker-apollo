@@ -65,16 +65,20 @@ if [[ "$?" == "1" ]]; then
 	su postgres -c "psql $WEBAPOLLO_HOST_FLAG -c \"GRANT ALL PRIVILEGES ON DATABASE $WEBAPOLLO_DB_NAME to $WEBAPOLLO_DB_USERNAME;\""
 fi
 
-echo "Configuring Chado"
-su postgres -c "PGPASSWORD=$CHADO_DB_PASSWORD psql $CHADO_HOST_FLAG -U $CHADO_DB_USERNAME -lqt | cut -d \| -f 1 | grep -qw $CHADO_DB_NAME"
-if [[ "$?" == "1" ]]; then
-	echo "Chado database not found, creating..."
-	su postgres -c "createdb $CHADO_HOST_FLAG $CHADO_DB_NAME"
-	su postgres -c "psql $CHADO_HOST_FLAG -c \"CREATE USER $CHADO_DB_USERNAME WITH PASSWORD '$CHADO_DB_PASSWORD';\""
-	su postgres -c "psql $CHADO_HOST_FLAG -c 'GRANT ALL PRIVILEGES ON DATABASE \"$CHADO_DB_NAME\" to $CHADO_DB_USERNAME;'"
-	echo "Loading Chado"
-	su postgres -c "PGPASSWORD=$CHADO_DB_PASSWORD psql -U $CHADO_DB_USERNAME -h $CHADO_DB_HOST $CHADO_DB_NAME -f /chado.sql"
-    echo "Loaded Chado"
+if [ ${WEBAPOLLO_USE_CHADO} ]; then
+    echo "Configuring Chado"
+    su postgres -c "PGPASSWORD=$CHADO_DB_PASSWORD psql $CHADO_HOST_FLAG -U $CHADO_DB_USERNAME -lqt | cut -d \| -f 1 | grep -qw $CHADO_DB_NAME"
+    if [[ "$?" == "1" ]]; then
+        echo "Chado database not found, creating..."
+        su postgres -c "createdb $CHADO_HOST_FLAG $CHADO_DB_NAME"
+        su postgres -c "psql $CHADO_HOST_FLAG -c \"CREATE USER $CHADO_DB_USERNAME WITH PASSWORD '$CHADO_DB_PASSWORD';\""
+        su postgres -c "psql $CHADO_HOST_FLAG -c 'GRANT ALL PRIVILEGES ON DATABASE \"$CHADO_DB_NAME\" to $CHADO_DB_USERNAME;'"
+        echo "Loading Chado"
+        su postgres -c "PGPASSWORD=$CHADO_DB_PASSWORD psql -U $CHADO_DB_USERNAME -h $CHADO_DB_HOST $CHADO_DB_NAME -f /chado.sql"
+        echo "Loaded Chado"
+    fi
+else
+    echo "Not using chado!"
 fi
 
 # https://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Naming

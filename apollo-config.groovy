@@ -42,35 +42,37 @@ environments {
                 defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
             }
         }
-        dataSource_chado {
-            dbCreate = "update"
-            username = System.getenv("CHADO_DB_USERNAME") ?: "apollo"
-            password = System.getenv("CHADO_DB_PASSWORD") ?: "apollo"
+        if( System.getenv("WEBAPOLLO_USE_CHADO")){
+            dataSource_chado {
+                dbCreate = "update"
+                username = System.getenv("CHADO_DB_USERNAME") ?: "apollo"
+                password = System.getenv("CHADO_DB_PASSWORD") ?: "apollo"
 
-            driverClassName = "org.postgresql.Driver"
-            dialect = "org.hibernate.dialect.PostgresPlusDialect"
+                driverClassName = "org.postgresql.Driver"
+                dialect = "org.hibernate.dialect.PostgresPlusDialect"
 
-            url = "jdbc:postgresql://${System.getenv("CHADO_DB_HOST")?:"127.0.0.1"}/${System.getenv("CHADO_DB_NAME")?:"chado"}"
+                url = "jdbc:postgresql://${System.getenv("CHADO_DB_HOST")?:"127.0.0.1"}/${System.getenv("CHADO_DB_NAME")?:"chado"}"
 
-            properties {
-                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
-                jmxEnabled = false
-                initialSize                   = 5
-                maxActive                     = 50
-                minIdle                       = 5
-                maxIdle                       = 25
-                maxWait                       = 10000
-                maxAge                        = 10 * 60000
-                timeBetweenEvictionRunsMillis = 5000
-                minEvictableIdleTimeMillis    = 60000
-                validationQuery               = "SELECT 1"
-                validationQueryTimeout        = 3
-                validationInterval            = 15000
-                testOnBorrow = true
-                testWhileIdle = true
-                testOnReturn = false
-                jdbcInterceptors = "ConnectionState"
-                defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
+                properties {
+                    // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
+                    jmxEnabled = false
+                    initialSize                   = 5
+                    maxActive                     = 50
+                    minIdle                       = 5
+                    maxIdle                       = 25
+                    maxWait                       = 10000
+                    maxAge                        = 10 * 60000
+                    timeBetweenEvictionRunsMillis = 5000
+                    minEvictableIdleTimeMillis    = 60000
+                    validationQuery               = "SELECT 1"
+                    validationQueryTimeout        = 3
+                    validationInterval            = 15000
+                    testOnBorrow = true
+                    testWhileIdle = true
+                    testOnReturn = false
+                    jdbcInterceptors = "ConnectionState"
+                    defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
+                }
             }
         }
     }
