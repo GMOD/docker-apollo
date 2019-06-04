@@ -1,7 +1,7 @@
 
 println "WEBAPOLLO environment"
 System.getenv().each {
-    if(it.key.startsWith("WEBAPOLLO") || it.key.startsWith("CHADO")){
+    if(it.key.contains("APOLLO") || it.key.contains("CHADO")){
         println it.key + " " + it.value
     }
 }
