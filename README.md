@@ -1,9 +1,5 @@
 
-<aside class="notice">
-This repo has been integrated directly into https://github.com/GMOD/Apollo.
-  
-It can be found on http://hub.docker.com/gmod/apollo or http://quay.io/repository/gmod/apollo.
-</aside>
+**NOTICE**: This repo has been integrated directly into https://github.com/GMOD/Apollo.  It can be found on http://hub.docker.com/gmod/apollo or http://quay.io/repository/gmod/apollo.
 
 
 # Apollo
